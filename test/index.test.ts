@@ -50,6 +50,21 @@ const tests: Record<string, Test> = {
     input: "import module from 'module'\nimport Component from '@/components'",
     output: "import module from 'module'\nimport Component from '../components'",
   },
+  // https://github.com/gulp-plugin/alias/issues/404
+  // https://github.com/lake2
+  ['should support wild card aliases lake2: fix incorrect path when resolve to the same or the sub folder']: {
+    options: { config: { paths: { '@/*': ['./src/*'] } } },
+    path: './src/pages/Page.ts',
+    input: "import module from 'module'\nimport Component from '@/pages/components'",
+    output: "import module from 'module'\nimport Component from './components'",
+  },
+  // https://github.com/zhouhuafei
+  ['should support wild card aliases zhouhuafei: fix incorrect path when resolve to the same or the sub folder']: {
+    options: { config: { paths: { '@/*': ['./src/*'] } } },
+    path: './src/index.ts',
+    input: "import module from 'module'\nimport Component from '@/sum'",
+    output: "import module from 'module'\nimport Component from './sum'",
+  },
   ['should skip commented imports']: {
     options: { config },
     path: './src/pages/Page.ts',
